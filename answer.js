@@ -4,6 +4,7 @@
         var goingup = [];
         var goingdown = [];
         var next = [];        
+        var weight = 0.2;
 
         for (var i in elevators){
             init_elevator(elevators[i], i);
@@ -56,12 +57,12 @@
                 }
             });
             elevator.on("passing_floor", function(floor, direction){
-                if (direction=="up" && goingup[floor] && elevator.loadFactor() < 0.2){
+                if (direction=="up" && goingup[floor] && elevator.loadFactor() < weight){
                     elevator.goToFloor(floor, true);
                     goingup[floor] = false;
                     if (next[0] == floor) {next = next_scrub(floor);}
                 }
-                else if (direction=="down" && goingdown[floor] && elevator.loadFactor() < 0.2){
+                else if (direction=="down" && goingdown[floor] && elevator.loadFactor() < weight){
                     elevator.goToFloor(floor, true);
                     goingdown[floor] = false;
                     if (next[0] == floor) {next = next_scrub(floor);}
